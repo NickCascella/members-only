@@ -7,8 +7,9 @@ block content
         input(type="text", name="username" placeholder="Enter a username here")
         label(for='password') Password
         input(type="password", name="password")
-        label(for='password') Password Confirmation
-        input(type="password", name="passwordConfirmation")
+        if signingUp
+            label(for='password') Password Confirmation
+            input(type="password", name="passwordConfirmation")
         button(type="submit") Submit
 
     

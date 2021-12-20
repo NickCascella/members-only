@@ -8,7 +8,7 @@ exports.index = function (req, res) {
 };
 
 exports.sign_up_get = function (req, res) {
-  res.render("signup", { title: "Sign up!" });
+  res.render("signup", { title: "Sign up!", signingUp: true });
 };
 
 exports.sign_up_post = [
@@ -34,6 +34,7 @@ exports.sign_up_post = [
       // There are errors. Render the form again with sanitized values/error messages.
       res.render("signup", {
         title: "Signup - Error",
+        signingUp: true,
         errors: errors.array(),
       });
       return;
@@ -57,13 +58,47 @@ exports.sign_up_post = [
 ];
 
 exports.login_get = function (req, res) {
-  res.render("signup", { title: "Log in" });
+  res.render("signup", { title: "Log in", signingUp: false });
 };
 
-exports.login_post = passport.authenticate("local", {
-  successRedirect: "/",
-  failureRedirect: "/home/sign-up",
-});
+exports.login_post = [
+  body("username", "Username must be between 5 - 12 characters long")
+    .trim()
+    .isLength({ min: 5, max: 12 })
+    .escape(),
+  body("password", "Password must be between 5 - 10 characters long")
+    .trim()
+    .isLength({ min: 5, max: 10 })
+    .escape(),
+  (req, res, next) => {
+    passport.authenticate("local", function (err, user, info) {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        let errorArray = [];
+        let error = {
+          msg: info.message,
+        };
+        errorArray.push(error);
+        res.status(401);
+        res.render("signup", {
+          title: "Log in",
+          signingUp: false,
+          errors: errorArray,
+        });
+        return;
+      } else {
+        req.logIn(user, function (err) {
+          if (err) {
+            return next(err);
+          }
+          return res.redirect("/");
+        });
+      }
+    })(req, res, next);
+  },
+];
 
 exports.logout_get = function (req, res) {
   req.logout();
