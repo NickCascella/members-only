@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h1 #{title}
+    form(action="", method="post") 
+        label(for='username') Username
+        input(type="text", name="username" placeholder="Enter a username here")
+        label(for='password') Password
+        input(type="password", name="password")
+        button(type="submit") Submit
