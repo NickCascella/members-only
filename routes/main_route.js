@@ -12,4 +12,6 @@ router.get("/login", members_only_controller.login_get)
 
 router.post("/login", members_only_controller.login_post)
 
+router.get("/logout", members_only_controller.logout_get)
+
 module.exports = router;

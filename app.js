@@ -6,7 +6,7 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 require("dotenv").config();
 //mongo
-const mongoDb = process.env.database; 
+const mongoDb = process.env.database;
 mongoose.connect(mongoDb, { useUnifiedTopology: true, useNewUrlParser: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
@@ -23,9 +23,12 @@ app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
+app.use(function (req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
 
 app.use("/", indexRouter);
 app.use("/home", mainRouter);
-
 
 app.listen(3000, () => console.log("app listening on port 3000!"));
