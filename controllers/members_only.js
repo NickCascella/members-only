@@ -2,6 +2,9 @@ const User = require("../models/users");
 const passport = require("../passport_details");
 const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
+require("dotenv").config();
+members_passcode = process.env.members_password;
+admin_passcode = process.env.admin_password;
 
 exports.index = function (req, res) {
   res.render("index");
@@ -39,19 +42,43 @@ exports.sign_up_post = [
       });
       return;
     } else {
-      bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
+      User.findOne({ username: req.body.username }).exec(function (
+        err,
+        results
+      ) {
         if (err) {
           return next(err);
         }
-        const user = new User({
-          username: req.body.username,
-          password: hashedPassword,
-        }).save((err) => {
-          if (err) {
-            return next(err);
-          }
-          res.redirect("/");
-        });
+
+        if (results) {
+          let errorArray = [];
+          let error = {
+            msg: "Please choose a different username. User already exists.",
+          };
+          errorArray.push(error);
+          res.render("signup", {
+            title: "Signup",
+            signingUp: true,
+            errors: errorArray,
+          });
+        } else {
+          bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
+            if (err) {
+              return next(err);
+            }
+            const user = new User({
+              username: req.body.username,
+              password: hashedPassword,
+              membershipStatus: false,
+              adminStatus: false,
+            }).save((err) => {
+              if (err) {
+                return next(err);
+              }
+              res.redirect("/");
+            });
+          });
+        }
       });
     }
   },
@@ -104,3 +131,48 @@ exports.logout_get = function (req, res) {
   req.logout();
   res.redirect("/");
 };
+
+exports.members_get = (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("members_signup", {
+      title: "Members Only",
+    });
+  } else {
+    let errorArray = [];
+    let error = {
+      msg: "You must sign in before viewing that page.",
+    };
+    errorArray.push(error);
+    res.redirect("/home/login").render("signup", {
+      title: "Log in ",
+      signingUp: false,
+      errors: errorArray,
+    });
+  }
+};
+
+exports.members_post = [
+  body("memberscode", "Invalid passcode")
+    .trim()
+    .escape()
+    .custom((value) => value === members_passcode),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    console.log(req.user);
+    if (!errors.isEmpty()) {
+      res.render("members_signup", {
+        title: "Members Only",
+        errors: errors.array(),
+      });
+    }
+    User.findOneAndUpdate(
+      { username: req.body.username },
+      { membershipStatus: true }
+    ).exec((err) => {
+      if (err) {
+        return next(err);
+      }
+      res.redirect("/");
+    });
+  },
+];
