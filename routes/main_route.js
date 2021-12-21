@@ -18,4 +18,8 @@ router.get("/members-sign-in", members_only_controller.members_get);
 
 router.post("/members-sign-in", members_only_controller.members_post);
 
+router.get("/create-message", members_only_controller.message_get);
+
+router.post("/create-message", members_only_controller.message_post);
+
 module.exports = router;

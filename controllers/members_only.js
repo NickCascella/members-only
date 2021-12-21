@@ -1,13 +1,24 @@
 const User = require("../models/users");
+const Message = require("../models/message");
 const passport = require("../passport_details");
 const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
 require("dotenv").config();
+const fs = require("fs");
 members_passcode = process.env.members_password;
 admin_passcode = process.env.admin_password;
 
 exports.index = function (req, res) {
-  res.render("index");
+  Message.find()
+    .sort({ _id: -1 })
+    .populate("user")
+    .exec(function (err, results) {
+      if (err) {
+        return next(err);
+      }
+
+      res.render("index", { messages: results });
+    });
 };
 
 exports.sign_up_get = function (req, res) {
@@ -169,6 +180,54 @@ exports.members_post = [
       { username: req.body.username },
       { membershipStatus: true }
     ).exec((err) => {
+      if (err) {
+        return next(err);
+      }
+      res.redirect("/");
+    });
+  },
+];
+
+exports.message_get = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    res.render("new_message");
+  } else {
+    let errorArray = [];
+    let error = {
+      msg: "You must sign in before viewing that page.",
+    };
+    errorArray.push(error);
+    res.redirect("/home/login");
+
+    // res.render("signup", {
+    //   title: "Log in ",
+    //   signingUp: false,
+    //   errors: errorArray,
+    // });
+  }
+};
+
+exports.message_post = [
+  body("newMessage", "Message must be between 1 - 50 characters long.")
+    .trim()
+    .escape()
+    .isLength({ min: 1, max: 50 }),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.render("new_message", {
+        errors: errors.array(),
+      });
+    }
+    const userData = JSON.parse(req.body.user);
+    const files = fs.readdirSync("./public/avatars/");
+    randomAvatar = Math.floor(Math.random() * files.length);
+    const message = new Message({
+      message: req.body.newMessage,
+      user: userData._id,
+      avatar: `avatars/${files[randomAvatar]}`,
+    });
+    message.save(function (err) {
       if (err) {
         return next(err);
       }

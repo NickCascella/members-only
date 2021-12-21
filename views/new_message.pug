@@ -1,0 +1,8 @@
+extends layout
+
+block content
+    h1 Enter your new message here
+    form(action="", method="post") 
+        input(type="hidden", name="user" value=currentUser)
+        textarea#message(name="newMessage", cols="30", rows="10" resize="none" max=50) 
+        button(type="submit") Add message

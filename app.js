@@ -17,6 +17,7 @@ app.set("views", path.join(__dirname, "views"));
 const indexRouter = require("./routes/index");
 const mainRouter = require("./routes/main_route");
 app.set("views", path.join(__dirname, "views"));
+app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "pug");
 //passport
 app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
