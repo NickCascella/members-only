@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
 require("dotenv").config();
 const fs = require("fs");
+const { format } = require("date-fns");
 members_passcode = process.env.members_password;
 admin_passcode = process.env.admin_password;
 
@@ -171,7 +172,7 @@ exports.members_post = [
     .custom((value) => value === members_passcode),
   (req, res, next) => {
     const errors = validationResult(req);
-    console.log(req.user);
+
     if (!errors.isEmpty()) {
       res.render("members_signup", {
         title: "Members Only",
@@ -180,9 +181,12 @@ exports.members_post = [
         status: "member",
         errors: errors.array(),
       });
+      return;
     }
     User.findOneAndUpdate(
-      { username: req.body.username },
+      {
+        username: req.body.username,
+      },
       { membershipStatus: true }
     ).exec((err) => {
       if (err) {
@@ -228,9 +232,13 @@ exports.admin_post = [
         status: "admin",
         errors: errors.array(),
       });
+      return;
     }
+
     User.findOneAndUpdate(
-      { username: req.body.username },
+      {
+        username: req.body.username,
+      },
       { adminStatus: true }
     ).exec((err) => {
       if (err) {
@@ -271,14 +279,17 @@ exports.message_post = [
       res.render("new_message", {
         errors: errors.array(),
       });
+      return;
     }
     const userData = JSON.parse(req.body.user);
     const files = fs.readdirSync("./public/avatars/");
     randomAvatar = Math.floor(Math.random() * files.length);
+    const date = format(new Date(), "yyyy-MM-dd @ HH:mm");
     const message = new Message({
       message: req.body.newMessage,
       user: userData._id,
       avatar: `avatars/${files[randomAvatar]}`,
+      date: date,
     });
     message.save(function (err) {
       if (err) {
