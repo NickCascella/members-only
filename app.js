@@ -25,7 +25,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 app.use(function (req, res, next) {
-  res.locals.currentUser = req.user;
+  res.locals.currentUser = req.user ? req.user : false;
   next();
 });
 

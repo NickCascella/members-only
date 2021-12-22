@@ -11,11 +11,12 @@ block content
                 li=message.message
                 img(src=message.avatar width="50px" height="50px" alt="avatar img")
                 li #{message.date} EST 
-                if currentUser
-                    if currentUser.adminStatus
-                        form(action="/home/delete", method="post") 
-                            input(type="hidden", name="messageId" value=message._id)
-                            button(type="delete") Delete Post
+                if currentUser.membershipStatus || currentUser.adminStatus
+                    li=message.user.username
+                if currentUser.adminStatus
+                    form(action="/home/delete", method="post") 
+                        input(type="hidden", name="messageId" value=message._id)
+                        button(type="delete") Delete Post
                     
                     
 
