@@ -1,10 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-
 router.get("/", function (req, res) {
-    res.redirect("/home");
-  });
-
+  res.redirect("/home");
+});
 
 module.exports = router;

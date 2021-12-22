@@ -11,5 +11,11 @@ block content
                 li=message.message
                 if message.avatar
                     img(src=message.avatar width="50px" height="50px" alt="avatar img")
+                if currentUser
+                    if currentUser.adminStatus
+                        form(action="/home/delete", method="post") 
+                            input(type="hidden", name="messageId" value=message._id)
+                            button(type="delete") Delete Post
+                    
                     
 

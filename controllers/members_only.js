@@ -16,7 +16,6 @@ exports.index = function (req, res) {
       if (err) {
         return next(err);
       }
-
       res.render("index", { messages: results });
     });
 };
@@ -147,6 +146,9 @@ exports.members_get = (req, res) => {
   if (req.isAuthenticated()) {
     res.render("members_signup", {
       title: "Members Only",
+      heading:
+        "Wanna see the authors of your favorite messages?? Upgrare your account status!",
+      status: "member",
     });
   } else {
     let errorArray = [];
@@ -173,12 +175,63 @@ exports.members_post = [
     if (!errors.isEmpty()) {
       res.render("members_signup", {
         title: "Members Only",
+        heading:
+          "Wanna see the authors of your favorite messages?? Upgrare your account status!",
+        status: "member",
         errors: errors.array(),
       });
     }
     User.findOneAndUpdate(
       { username: req.body.username },
       { membershipStatus: true }
+    ).exec((err) => {
+      if (err) {
+        return next(err);
+      }
+      res.redirect("/");
+    });
+  },
+];
+
+exports.admin_get = (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("members_signup", {
+      title: "Admins Only",
+      heading: "Have authorization to delete ANY posts",
+      status: "admin",
+    });
+  } else {
+    let errorArray = [];
+    let error = {
+      msg: "You must sign in before viewing that page.",
+    };
+    errorArray.push(error);
+    res.redirect("/home/login").render("signup", {
+      title: "Log in ",
+      signingUp: false,
+      errors: errorArray,
+    });
+  }
+};
+
+exports.admin_post = [
+  body("memberscode", "Invalid passcode")
+    .trim()
+    .escape()
+    .custom((value) => value === admin_passcode),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.render("members_signup", {
+        title: "Admins Only",
+        heading: "Have authorization to delete ANY posts",
+        status: "admin",
+        errors: errors.array(),
+      });
+    }
+    User.findOneAndUpdate(
+      { username: req.body.username },
+      { adminStatus: true }
     ).exec((err) => {
       if (err) {
         return next(err);
@@ -235,3 +288,12 @@ exports.message_post = [
     });
   },
 ];
+
+exports.delete_post = function (req, res, next) {
+  Message.findByIdAndDelete(req.body.messageId).exec((err, results) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+};

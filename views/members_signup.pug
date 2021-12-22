@@ -1,9 +1,10 @@
 extends layout
 
 block content
-    h1 Wanna see the authors of your favorite messages?? Upgrare your account status!
+    h1 #{title}
+    h2 #{heading}
     form(action="", method="post")
-        label(for="memberscode") Enter membership code here
+        label(for="memberscode") Enter #{status} code here
         input#membersCode(type="password", name="memberscode")
         input(type="hidden", name="username" value=currentUser.username)
         button(type="submit") Submit
