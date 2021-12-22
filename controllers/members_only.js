@@ -21,8 +21,18 @@ exports.index = function (req, res) {
     });
 };
 
-exports.sign_up_get = function (req, res) {
-  res.render("signup", { title: "Sign up!", signingUp: true });
+exports.sign_up_get = function (req, res, next) {
+  User.count().exec(function (err, results) {
+    if (err) {
+      return next(err);
+    }
+
+    res.render("signup", {
+      title: "Sign up!",
+      userCount: results,
+      signingUp: true,
+    });
+  });
 };
 
 exports.sign_up_post = [
@@ -46,12 +56,18 @@ exports.sign_up_post = [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       // There are errors. Render the form again with sanitized values/error messages.
-      res.render("signup", {
-        title: "Signup - Error",
-        signingUp: true,
-        errors: errors.array(),
+      User.count().exec(function (err, results) {
+        if (err) {
+          return next(err);
+        }
+        res.render("signup", {
+          title: "Signup",
+          userCount: results,
+          signingUp: true,
+          errors: errors.array(),
+        });
+        return;
       });
-      return;
     } else {
       User.findOne({ username: req.body.username }).exec(function (
         err,
@@ -201,7 +217,7 @@ exports.admin_get = (req, res) => {
   if (req.isAuthenticated()) {
     res.render("members_signup", {
       title: "Admins Only",
-      heading: "Have authorization to delete ANY posts",
+      heading: "Have authorization to delete ANY posts + members benefits",
       status: "admin",
     });
   } else {
@@ -228,7 +244,7 @@ exports.admin_post = [
     if (!errors.isEmpty()) {
       res.render("members_signup", {
         title: "Admins Only",
-        heading: "Have authorization to delete ANY posts",
+        heading: "Have authorization to delete ANY posts + members benefits",
         status: "admin",
         errors: errors.array(),
       });
@@ -239,7 +255,8 @@ exports.admin_post = [
       {
         username: req.body.username,
       },
-      { adminStatus: true }
+      { adminStatus: true },
+      { membershipStatus: true }
     ).exec((err) => {
       if (err) {
         return next(err);
@@ -269,10 +286,14 @@ exports.message_get = (req, res, next) => {
 };
 
 exports.message_post = [
-  body("newMessage", "Message must be between 1 - 50 characters long.")
+  body("messageTitle", "Title must be between 1 - 30 characters long.")
     .trim()
     .escape()
-    .isLength({ min: 1, max: 50 }),
+    .isLength({ min: 1, max: 30 }),
+  body("newMessage", "Message must be between 1 - 1000 characters long.")
+    .trim()
+    .escape()
+    .isLength({ min: 1, max: 1000 }),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -286,6 +307,7 @@ exports.message_post = [
     randomAvatar = Math.floor(Math.random() * files.length);
     const date = format(new Date(), "yyyy-MM-dd @ HH:mm");
     const message = new Message({
+      title: req.body.messageTitle,
       message: req.body.newMessage,
       user: userData._id,
       avatar: `avatars/${files[randomAvatar]}`,

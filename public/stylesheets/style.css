@@ -1,0 +1,152 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  background: #646e8b;
+  color: white;
+}
+
+.nav-container {
+  width: 100%;
+  background: #43435c;
+}
+
+.nav-container .nav {
+  width: 100%;
+  max-width: 1400px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.nav-container .nav .nav-link {
+  color: black;
+  text-decoration: none;
+  margin: 0 15px;
+}
+
+.nav-container .nav .nav-link:hover {
+  color: red;
+}
+
+.rendered-page {
+  width: 100%;
+  max-width: 1400px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 50px auto;
+}
+
+.rendered-page .message-feed {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  list-style: none;
+  padding: 2% 10%;
+  width: 80%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.rendered-page .message-feed .message-container {
+  width: 80%;
+  padding: 7%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  background: #43435c;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.rendered-page .message-feed .message-container .message-icon {
+  width: 20%;
+}
+
+.rendered-page .message-feed .message-container .message-details {
+  width: 80%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding-left: 20px;
+}
+
+.rendered-page .message-feed .message-container .message-details .message-title {
+  margin-bottom: 10px;
+}
+
+.rendered-page .message-feed .message-container .message-details .message-message {
+  padding: 10px;
+  background: #646e8b;
+  font-size: 14px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.rendered-page .message-feed .message-container .message-details .message-time,
+.rendered-page .message-feed .message-container .message-details .message-author,
+.rendered-page .message-feed .message-container .message-details .message-delete-button {
+  margin-top: 10px;
+  margin-left: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.rendered-page .message-feed .message-container .message-details .message-delete-form {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  margin-left: auto;
+}
+
+.button {
+  background: #646e8b;
+  padding: 5px;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  font-weight: bold;
+  -webkit-transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+/*# sourceMappingURL=style.css.map */

@@ -2,21 +2,34 @@ extends layout
 
 block content
     if currentUser 
-        h1 Welcome #{currentUser.username}
+        h1 Welcome back #{currentUser.username}!
+        |
+        if currentUser.adminStatus
+            h2 Account type: Admin 
+        else if currentUser.membershipStatus
+            h2 Account type: Member
+        else 
+            h2 Account type: General
     else
-        h1 Welcome stranger!
+        h1 Hello stranger!
+        h2 Log in to add messages to the feed!
     if messages
-        ul
+        ul(class="message-feed")
             for message in messages 
-                li=message.message
-                img(src=message.avatar width="50px" height="50px" alt="avatar img")
-                li #{message.date} EST 
-                if currentUser.membershipStatus || currentUser.adminStatus
-                    li=message.user.username
-                if currentUser.adminStatus
-                    form(action="/home/delete", method="post") 
-                        input(type="hidden", name="messageId" value=message._id)
-                        button(type="delete") Delete Post
+                div(class="message-container")
+                    img(class="message-icon" src=message.avatar alt="avatar img")
+                    div(class="message-details")
+                        h3(class="message-title")=message.title
+                        p(class="message-message")=message.message
+                        div(class="message-time") #{message.date} EST 
+                        if currentUser.membershipStatus || currentUser.adminStatus
+                            div(class="message-author")=message.user.username
+                        else
+                            div(class="message-author") Unknown Author
+                        if currentUser.adminStatus
+                            form(action="/home/delete", method="post" class="message-delete-form") 
+                                input(type="hidden", name="messageId" value=message._id)
+                                button(type="delete" class="button message-delete-button") Delete Post
                     
                     
 

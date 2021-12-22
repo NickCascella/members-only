@@ -2,6 +2,8 @@ extends layout
 
 block content
     h1 #{title}
+    if signingUp
+        h2 Join #{userCount} other users today!
     form(action="", method="post") 
         label(for='username') Username
         input(type="text", name="username" placeholder="Please no special characters")

@@ -7,25 +7,23 @@ html(lang='en')
     <link rel="icon" type="image/x-icon" href=/images/favicon.ico>
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    div
-      div
-        block sidebar
-          ul(class='nav')
+    div(class="nav-container")
+        ul(class='nav')
+          li
+            a(href='/home' class='nav-link') Home
+          if currentUser
             li
-              a(href='/home' class='nav-link') Home
-            if currentUser
-              li
-                a(href='/home/members-sign-in' class='nav-link') Members Only
-              li
-                a(href='/home/admins-sign-in' class='nav-link') Admins Only
-              li
-                a(href='/home/create-message' class='nav-link') New Message
+              a(href='/home/members-sign-in' class='nav-link') Members Only
             li
-              a(href='/home/sign-up' class='nav-link') Sign Up
+              a(href='/home/admins-sign-in' class='nav-link') Admins Only
             li
-              a(href='/home/login' class='nav-link') Login
-            li
-              a(href='/home/logout' class='nav-link') Logout
+              a(href='/home/create-message' class='nav-link') New Message
+          li
+            a(href='/home/sign-up' class='nav-link') Sign Up
+          li
+            a(href='/home/login' class='nav-link') Login
+          li
+            a(href='/home/logout' class='nav-link') Logout
 
-      div(class='rendered-page')
-        block content
+    div(class='rendered-page')
+      block content
