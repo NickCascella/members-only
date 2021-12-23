@@ -5,7 +5,7 @@
 }
 
 html {
-  background: rgba(74, 143, 233, 0.699);
+  background: #24446e;
   color: white;
   font-family: "Roboto", sans-serif;
   overflow-x: hidden;
@@ -18,12 +18,12 @@ html {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: rgba(74, 143, 233, 0.699);
+  background: #24446e;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgba(53, 103, 168, 0.678);
+  background: #070d14;
   border-radius: 5px;
 }
 
@@ -35,7 +35,7 @@ html {
 .nav-container {
   width: 100%;
   padding: 0 5px;
-  background: rgba(53, 103, 168, 0.678);
+  background: #070d14;
 }
 
 .nav-container .nav {
@@ -46,8 +46,9 @@ html {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
   list-style: none;
   padding: 20px;
   -webkit-box-sizing: border-box;
@@ -165,7 +166,7 @@ html {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  background: rgba(53, 103, 168, 0.678);
+  background: #070d14;
   border-radius: 10px;
   margin: 20px 0;
 }
@@ -192,11 +193,12 @@ html {
 
 .rendered-page .message-feed .message-container .message-details .message-message {
   padding: 10px;
-  background: rgba(74, 143, 233, 0.699);
+  background: #24446e;
   font-size: 14px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   border-radius: 5px;
+  line-height: 1.5;
 }
 
 .rendered-page .message-feed .message-container .message-details .message-time,
@@ -223,7 +225,7 @@ html {
 
 .rendered-page form:not(.message-delete-form) {
   padding: 25px;
-  background: rgba(53, 103, 168, 0.678);
+  background: #070d14;
 }
 
 .rendered-page form {
@@ -257,7 +259,7 @@ html {
 .rendered-page form textarea {
   margin-top: 5px;
   font-size: 18px;
-  background: rgba(74, 143, 233, 0.699);
+  background: #24446e;
   color: white;
   padding: 5px;
   border-radius: 5px;
@@ -307,7 +309,7 @@ html {
 }
 
 .button {
-  background: rgba(74, 143, 233, 0.699);
+  background: #24446e;
   padding: 5px;
   color: white;
   border-radius: 5px;

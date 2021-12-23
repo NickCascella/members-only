@@ -18,12 +18,14 @@ html(lang='en')
               a(href='/home/admins-sign-in' class='nav-link') Admins Only
             li
               a(href='/home/create-message' class='nav-link') New Message
-          li
-            a(href='/home/sign-up' class='nav-link') Sign Up
-          li
-            a(href='/home/login' class='nav-link') Login
-          li
-            a(href='/home/logout' class='nav-link') Logout
+            li
+              a(href='/home/logout' class='nav-link') Logout
+          if !currentUser
+            li
+              a(href='/home/sign-up' class='nav-link') Sign Up
+            li
+              a(href='/home/login' class='nav-link') Login
+          
 
     div(class='rendered-page')
       block content
