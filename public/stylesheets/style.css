@@ -326,6 +326,10 @@ html {
   opacity: 0.8;
 }
 
+.error-icon {
+  width: 70px;
+}
+
 @-webkit-keyframes shake {
   30% {
     -webkit-transform: rotate(20deg);
