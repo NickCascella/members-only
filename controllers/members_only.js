@@ -6,8 +6,8 @@ const { body, validationResult } = require("express-validator");
 require("dotenv").config();
 const fs = require("fs");
 const { format } = require("date-fns");
-members_passcode = process.env.members_password;
-admin_passcode = process.env.admin_password;
+members_passcode = process.env.members_passcode;
+admins_passcode = process.env.admins_passcode;
 
 exports.index = function (req, res) {
   Message.find()
@@ -48,7 +48,7 @@ exports.sign_up_post = [
 
   body(
     "passwordConfirmation",
-    "passwordConfirmation field must have the same value as the password field"
+    "The Password Confirmation field must have the same value as the Password field"
   )
     .exists()
     .custom((value, { req }) => value === req.body.password),
@@ -188,7 +188,6 @@ exports.members_post = [
     .custom((value) => value === members_passcode),
   (req, res, next) => {
     const errors = validationResult(req);
-
     if (!errors.isEmpty()) {
       res.render("members_signup", {
         title: "Members Only",
@@ -238,9 +237,10 @@ exports.admin_post = [
   body("memberscode", "Invalid passcode")
     .trim()
     .escape()
-    .custom((value) => value === admin_passcode),
+    .custom((value) => value === admins_passcode),
   (req, res, next) => {
     const errors = validationResult(req);
+    console.log(req.body.memberscode, admins_passcode);
     if (!errors.isEmpty()) {
       res.render("members_signup", {
         title: "Admins Only",
@@ -276,12 +276,6 @@ exports.message_get = (req, res, next) => {
     };
     errorArray.push(error);
     res.redirect("/home/login");
-
-    // res.render("signup", {
-    //   title: "Log in ",
-    //   signingUp: false,
-    //   errors: errorArray,
-    // });
   }
 };
 

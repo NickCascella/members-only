@@ -12,7 +12,7 @@ block content
 
     if errors
         div(class='errors-container')
-        h2 Please note the following issues with your request
-        ul(class="error-list")
-            for error in errors
-                li= error.msg
+            h2(class="sub-heading") Please note the following issues with your request
+            ul(class="error-list")
+                for error in errors
+                    li= error.msg

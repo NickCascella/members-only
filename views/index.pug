@@ -2,14 +2,18 @@ extends layout
 
 block content
     if currentUser 
-        h1(class="heading") Welcome back #{currentUser.username}!
+        h1(class="heading") Welcome back 
+            span(class="username-display") #{currentUser.username}
         |
         if currentUser.adminStatus
-            h2(class="sub-heading") Account type: Admin 
+            h2(class="sub-heading") Account type: 
+                span(class="admin-color") Admin 
         else if currentUser.membershipStatus
-            h2(class="sub-heading") Account type: Member
+            h2(class="sub-heading") Account type:
+                span(class="member-color") Member
         else 
-            h2(class="sub-heading") Account type: General
+            h2(class="sub-heading") Account type: 
+                span(class="general-color") General
     else
         h1(class="heading") Hello stranger!
         h2(class="sub-heading") Log in to add messages to the feed! As well as to learn about more exclusive features for Members and Admins!

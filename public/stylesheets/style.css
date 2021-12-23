@@ -1,11 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap");
 * {
   padding: 0;
   margin: 0;
 }
 
 html {
-  background: #646e8b;
+  background: rgba(74, 143, 233, 0.699);
   color: white;
+  font-family: "Roboto", sans-serif;
+  overflow-x: hidden;
 }
 
 /* width */
@@ -15,12 +18,12 @@ html {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #646e8b;
+  background: rgba(74, 143, 233, 0.699);
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #43435c;
+  background: rgba(53, 103, 168, 0.678);
   border-radius: 5px;
 }
 
@@ -31,7 +34,8 @@ html {
 
 .nav-container {
   width: 100%;
-  background: #43435c;
+  padding: 0 5px;
+  background: rgba(53, 103, 168, 0.678);
 }
 
 .nav-container .nav {
@@ -56,10 +60,34 @@ html {
   text-decoration: none;
   margin: 0 15px;
   font-size: 20px;
+  display: inline-block;
+  position: relative;
 }
 
-.nav-container .nav .nav-link:hover {
-  color: red;
+.nav-container .nav .nav-link::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  -webkit-transform: scaleX(0);
+          transform: scaleX(0);
+  height: 2px;
+  margin-top: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  -webkit-transform-origin: bottom right;
+          transform-origin: bottom right;
+  -webkit-transition: -webkit-transform 0.25s ease-out;
+  transition: -webkit-transform 0.25s ease-out;
+  transition: transform 0.25s ease-out;
+  transition: transform 0.25s ease-out, -webkit-transform 0.25s ease-out;
+}
+
+.nav-container .nav .nav-link:hover::after {
+  -webkit-transform: scaleX(1);
+          transform: scaleX(1);
+  -webkit-transform-origin: bottom left;
+          transform-origin: bottom left;
 }
 
 .rendered-page {
@@ -79,6 +107,9 @@ html {
       -ms-flex-align: center;
           align-items: center;
   margin: 50px auto;
+  padding: 0 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .rendered-page .heading {
@@ -90,6 +121,22 @@ html {
   font-size: 20px;
   max-width: 550px;
   padding: 10px;
+}
+
+.rendered-page .username-display {
+  font-weight: normal;
+}
+
+.rendered-page .admin-color {
+  color: lightblue;
+}
+
+.rendered-page .member-color {
+  color: gold;
+}
+
+.rendered-page .general-color {
+  color: pink;
 }
 
 .rendered-page .message-feed {
@@ -118,13 +165,18 @@ html {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  background: #43435c;
+  background: rgba(53, 103, 168, 0.678);
   border-radius: 10px;
   margin: 20px 0;
 }
 
 .rendered-page .message-feed .message-container .message-icon {
   width: 20%;
+}
+
+.rendered-page .message-feed .message-container .message-icon:hover {
+  -webkit-animation: shake 0.3s;
+          animation: shake 0.3s;
 }
 
 .rendered-page .message-feed .message-container .message-details {
@@ -140,7 +192,7 @@ html {
 
 .rendered-page .message-feed .message-container .message-details .message-message {
   padding: 10px;
-  background: #646e8b;
+  background: rgba(74, 143, 233, 0.699);
   font-size: 14px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -171,6 +223,7 @@ html {
 
 .rendered-page form:not(.message-delete-form) {
   padding: 25px;
+  background: rgba(53, 103, 168, 0.678);
 }
 
 .rendered-page form {
@@ -181,7 +234,6 @@ html {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  background: #43435c;
   border-radius: 12.5px;
 }
 
@@ -205,7 +257,7 @@ html {
 .rendered-page form textarea {
   margin-top: 5px;
   font-size: 18px;
-  background: #646e8b;
+  background: rgba(74, 143, 233, 0.699);
   color: white;
   padding: 5px;
   border-radius: 5px;
@@ -245,8 +297,17 @@ html {
   margin-top: 15px;
 }
 
+.rendered-page .errors-container .error-list {
+  list-style: none;
+}
+
+.rendered-page .errors-container .error-list li {
+  margin-top: 10px;
+  padding-left: 10px;
+}
+
 .button {
-  background: #646e8b;
+  background: rgba(74, 143, 233, 0.699);
   padding: 5px;
   color: white;
   border-radius: 5px;
@@ -260,5 +321,35 @@ html {
 .button:hover {
   cursor: pointer;
   opacity: 0.8;
+}
+
+@-webkit-keyframes shake {
+  30% {
+    -webkit-transform: rotate(20deg);
+            transform: rotate(20deg);
+  }
+  60% {
+    -webkit-transform: rotate(-20deg);
+            transform: rotate(-20deg);
+  }
+  100% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+}
+
+@keyframes shake {
+  30% {
+    -webkit-transform: rotate(20deg);
+            transform: rotate(20deg);
+  }
+  60% {
+    -webkit-transform: rotate(-20deg);
+            transform: rotate(-20deg);
+  }
+  100% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
 }
 /*# sourceMappingURL=style.css.map */
