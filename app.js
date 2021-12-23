@@ -1,4 +1,6 @@
 //modules
+const compression = require("compression");
+const helmet = require("helmet");
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
@@ -13,6 +15,8 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
 //server
 const app = express();
+app.use(compression());
+app.use(helmet());
 app.set("views", path.join(__dirname, "views"));
 //routes
 const indexRouter = require("./routes/index");
