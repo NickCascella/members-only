@@ -1,9 +1,18 @@
 extends layout
 
 block content
-    h1 Enter your new message here
+    h1(class="heading") Enter your new message here
     form(action="", method="post") 
         input(type="hidden", name="user" value=currentUser)
+        label(for="messageTitle") Title
         input#title(type="text", name="messageTitle")
-        textarea#message(name="newMessage", cols="30", rows="10" resize="none" max=50) 
-        button(type="submit") Add message
+        label(for="newMessage") Message
+        textarea#message(name="newMessage" max=1000) 
+        button(type="submit" class="button") Add message
+
+    if errors
+        div(class='errors-container')
+        h2 Please note the following issues with your request
+        ul(class="error-list")
+            for error in errors
+                li= error.msg

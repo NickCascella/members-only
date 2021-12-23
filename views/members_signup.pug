@@ -1,15 +1,15 @@
 extends layout
 
 block content
-    h1 #{title}
-    h2 #{heading}
+    h1(class="heading") #{title}
+    h2(class="sub-heading") #{heading}
     form(action="", method="post")
         label(for="memberscode") Enter #{status} code here
         input#membersCode(type="password", name="memberscode")
         input(type="hidden", name="username" value=currentUser.username)
-        button(type="submit") Submit
+        button(type="submit" class="button") Submit
     if errors
-        div(class='error-container')
+        div(class='errors-container')
             h2 Please note the following issues with your request
             ul(class="error-list")
                 for error in errors

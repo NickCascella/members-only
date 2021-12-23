@@ -36,9 +36,9 @@ exports.sign_up_get = function (req, res, next) {
 };
 
 exports.sign_up_post = [
-  body("username", "Username must be between 5 - 12 characters long")
+  body("username", "Username must be between 3 - 20 characters long")
     .trim()
-    .isLength({ min: 5, max: 12 })
+    .isLength({ min: 3, max: 20 })
     .escape(),
 
   body("password", "Password must be between 5 - 10 characters long")
@@ -217,7 +217,7 @@ exports.admin_get = (req, res) => {
   if (req.isAuthenticated()) {
     res.render("members_signup", {
       title: "Admins Only",
-      heading: "Have authorization to delete ANY posts + members benefits",
+      heading: "Have authorization to delete ANY posts + Members benefits",
       status: "admin",
     });
   } else {
@@ -244,7 +244,7 @@ exports.admin_post = [
     if (!errors.isEmpty()) {
       res.render("members_signup", {
         title: "Admins Only",
-        heading: "Have authorization to delete ANY posts + members benefits",
+        heading: "Have authorization to delete ANY posts + Members benefits",
         status: "admin",
         errors: errors.array(),
       });

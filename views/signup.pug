@@ -1,22 +1,22 @@
 extends layout
 
 block content
-    h1 #{title}
+    h1(class="heading")= title
     if signingUp
-        h2 Join #{userCount} other users today!
-    form(action="", method="post") 
+        h2(class="sub-heading") Join #{userCount} other users today!
+    form(action="" method="post" class="form")  
         label(for='username') Username
-        input(type="text", name="username" placeholder="Please no special characters")
+        input(type="text", name="username" placeholder= signingUp ? "Keep it civil.." : "")
         label(for='password') Password
         input(type="password", name="password")
         if signingUp
             label(for='password') Password Confirmation
             input(type="password", name="passwordConfirmation")
-        button(type="submit") Submit
+        button(type="submit" class="button") Submit
 
     
     if errors
-        div(class='error-container')
+        div(class='errors-container')
         h2 Please note the following issues with your request
         ul(class="error-list")
             for error in errors

@@ -70,9 +70,9 @@ html {
     text-align: center;
   }
   .sub-heading {
+    font-size: 20px;
     max-width: 550px;
     padding: 10px;
-    text-align: center;
   }
   .message-feed {
     box-sizing: border-box;
@@ -124,6 +124,56 @@ html {
       }
     }
   }
+  form:not(.message-delete-form) {
+    padding: 25px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    background: $background-secondary;
+
+    border-radius: 12.5px;
+    .message-delete-form {
+      padding: 0;
+    }
+    label {
+      margin-top: 15px;
+      font-size: 18px;
+    }
+    label[for="username"],
+    label[for="memberscode"],
+    label[for="messageTitle"] {
+      margin-top: 0;
+    }
+    input[type="text"],
+    input[type="password"],
+    textarea {
+      margin-top: 5px;
+      font-size: 18px;
+      background: $background-primary;
+      color: $font-primary;
+      padding: 5px;
+      border-radius: 5px;
+      border: none;
+      white-space: pre-wrap;
+      &:focus {
+        outline: none;
+      }
+    }
+    textarea {
+      resize: none;
+
+      width: 250px;
+      height: 300px;
+    }
+    ::placeholder {
+      color: $font-primary;
+    }
+  }
+  .errors-container {
+    margin-top: 15px;
+  }
 }
 
 .button {
@@ -134,6 +184,7 @@ html {
   border: none;
   font-weight: bold;
   transition: opacity 0.3s ease-in-out;
+  margin-top: 15px;
 
   &:hover {
     cursor: pointer;
