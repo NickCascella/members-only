@@ -1,7 +1,5 @@
 $background-primary: rgb(36, 68, 110);
 $background-secondary: rgb(7, 13, 20);
-// $background-primary: rgb(100, 110, 139);
-// $background-secondary: rgb(67, 67, 92);
 $font-primary: white;
 $font-admin: lightblue;
 $font-member: gold;
@@ -11,13 +9,13 @@ $font-general: pink;
 * {
   padding: 0;
   margin: 0;
+  overflow-x: hidden;
 }
 
 html {
   background: $background-primary;
   color: $font-primary;
   font-family: "Roboto", sans-serif;
-  overflow-x: hidden;
 }
 
 /* width */
@@ -151,6 +149,7 @@ html {
           box-sizing: border-box;
           border-radius: 5px;
           line-height: 1.5;
+          word-break: break-all;
         }
         .message-time,
         .message-author,
@@ -250,5 +249,32 @@ html {
   }
   100% {
     transform: rotate(0deg);
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .rendered-page {
+    .message-feed {
+      .message-container {
+        flex-direction: column;
+        .message-details {
+          width: 100%;
+        }
+      }
+    }
+  }
+  .message-icon {
+    margin: 0 auto 15px auto;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .rendered-page {
+    .message-feed {
+      padding: 0;
+    }
+  }
+  .message-icon {
+    margin: 0 auto 15px auto;
   }
 }

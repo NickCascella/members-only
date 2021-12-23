@@ -2,13 +2,13 @@
 * {
   padding: 0;
   margin: 0;
+  overflow-x: hidden;
 }
 
 html {
   background: #24446e;
   color: white;
   font-family: "Roboto", sans-serif;
-  overflow-x: hidden;
 }
 
 /* width */
@@ -199,6 +199,7 @@ html {
           box-sizing: border-box;
   border-radius: 5px;
   line-height: 1.5;
+  word-break: break-all;
 }
 
 .rendered-page .message-feed .message-container .message-details .message-time,
@@ -352,6 +353,30 @@ html {
   100% {
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .rendered-page .message-feed .message-container {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .rendered-page .message-feed .message-container .message-details {
+    width: 100%;
+  }
+  .message-icon {
+    margin: 0 auto 15px auto;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .rendered-page .message-feed {
+    padding: 0;
+  }
+  .message-icon {
+    margin: 0 auto 15px auto;
   }
 }
 /*# sourceMappingURL=style.css.map */
