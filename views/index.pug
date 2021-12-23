@@ -2,17 +2,17 @@ extends layout
 
 block content
     if currentUser 
-        h1 Welcome back #{currentUser.username}!
+        h1(class="heading") Welcome back #{currentUser.username}!
         |
         if currentUser.adminStatus
-            h2 Account type: Admin 
+            h2(class="sub-heading") Account type: Admin 
         else if currentUser.membershipStatus
-            h2 Account type: Member
+            h2(class="sub-heading") Account type: Member
         else 
-            h2 Account type: General
+            h2(class="sub-heading") Account type: General
     else
-        h1 Hello stranger!
-        h2 Log in to add messages to the feed!
+        h1(class="heading") Hello stranger!
+        h2(class="sub-heading") Log in to add messages to the feed! As well as to learn about more exclusive features for Members and Admins!
     if messages
         ul(class="message-feed")
             for message in messages 

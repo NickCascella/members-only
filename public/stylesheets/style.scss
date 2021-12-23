@@ -12,6 +12,26 @@ html {
   color: $font-primary;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $background-primary;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $background-secondary;
+  border-radius: 5px;
+  &:hover {
+    background: $font-primary;
+    cursor: pointer;
+  }
+}
+
 .nav-container {
   width: 100%;
   background: $background-secondary;
@@ -22,12 +42,14 @@ html {
     flex-wrap: wrap;
     justify-content: space-around;
     list-style: none;
-    padding: 0;
+    padding: 20px;
+    box-sizing: border-box;
     margin: 0 auto;
     .nav-link {
-      color: black;
+      color: $font-primary;
       text-decoration: none;
       margin: 0 15px;
+      font-size: 20px;
       &:hover {
         color: rgb(255, 0, 0);
       }
@@ -43,6 +65,15 @@ html {
   justify-content: center;
   align-items: center;
   margin: 50px auto;
+  .heading {
+    padding: 10px;
+    text-align: center;
+  }
+  .sub-heading {
+    max-width: 550px;
+    padding: 10px;
+    text-align: center;
+  }
   .message-feed {
     box-sizing: border-box;
     list-style: none;
