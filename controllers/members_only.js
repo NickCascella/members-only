@@ -102,7 +102,7 @@ exports.sign_up_post = [
               if (err) {
                 return next(err);
               }
-              res.redirect("/");
+              res.redirect("/home/login");
             });
           });
         }
@@ -240,7 +240,7 @@ exports.admin_post = [
     .custom((value) => value === admins_passcode),
   (req, res, next) => {
     const errors = validationResult(req);
-    console.log(req.body.memberscode, admins_passcode);
+
     if (!errors.isEmpty()) {
       res.render("members_signup", {
         title: "Admins Only",
