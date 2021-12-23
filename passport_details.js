@@ -9,7 +9,7 @@ passport.use(
         return done(err);
       }
       if (!user) {
-        return done(null, false, { message: "Cannot identify user" });
+        return done(null, false, { message: "User does not exist" });
       }
       bcrypt.compare(password, user.password, (err, res) => {
         if (res) {
