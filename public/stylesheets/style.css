@@ -124,6 +124,14 @@ html {
   padding: 10px;
 }
 
+.rendered-page .ranks-explained {
+  padding: 0 10px;
+}
+
+.rendered-page .ranks-explained li {
+  margin-top: 10px;
+}
+
 .rendered-page .username-display {
   font-weight: normal;
 }

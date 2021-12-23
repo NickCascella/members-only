@@ -14,6 +14,16 @@ block content
         else 
             h2(class="sub-heading") Account type: 
                 span(class="general-color") General
+        ul(class="ranks-explained") 
+            li 
+                span(class="general-color") General 
+                span users can only post 
+            li 
+                span(class="member-color") Members 
+                span can see the authors of posts + post
+            li 
+                span(class="admin-color") Admins 
+                span can both see and delete posts + post
     else
         h1(class="heading") Hello stranger!
         h2(class="sub-heading") Log in to add messages to the feed! As well as to learn about more exclusive features for Members and Admins!
@@ -26,7 +36,7 @@ block content
                         h3(class="message-title")=message.title
                         p(class="message-message")=message.message
                         div(class="message-time") #{message.date} EST 
-                        if currentUser.membershipStatus || currentUser.adminStatus
+                        if currentUser.membershipStatus || currentUser.adminStatus || message.user.username === currentUser.username
                             div(class="message-author")=message.user.username
                         else
                             div(class="message-author") Unknown Author
