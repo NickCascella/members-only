@@ -63,6 +63,7 @@ exports.sign_up_post = [
         res.render("signup", {
           title: "Signup",
           userCount: results,
+          username: req.body.username,
           signingUp: true,
           errors: errors.array(),
         });
@@ -139,6 +140,7 @@ exports.login_post = [
         res.render("signup", {
           title: "Log in",
           signingUp: false,
+          username: req.body.username,
           errors: errorArray,
         });
         return;
