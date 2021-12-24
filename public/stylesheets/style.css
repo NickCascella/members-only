@@ -59,7 +59,7 @@ html {
 .nav-container .nav .nav-link {
   color: white;
   text-decoration: none;
-  margin: 0 15px;
+  margin: 10px 15px;
   font-size: 20px;
   display: inline-block;
   position: relative;
@@ -121,7 +121,7 @@ html {
 .rendered-page .sub-heading {
   font-size: 20px;
   max-width: 550px;
-  padding: 10px;
+  padding: 10px 25px;
 }
 
 .rendered-page .ranks-explained {

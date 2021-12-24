@@ -6,7 +6,7 @@ block content
         h2(class="sub-heading") Join #{userCount} other users today!
     form(action="" method="post" class="form")  
         label(for='username') Username
-        input(type="text", name="username" placeholder= signingUp ? "Keep it civil.." : "" value= errors ? username:"")
+        input(type="text", name="username" placeholder= signingUp ? "Keep it civil.." : "" value= errors ? username: "")
         label(for='password') Password
         input(type="password", name="password")
         if signingUp
